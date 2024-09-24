@@ -1,13 +1,5 @@
 FROM eclipse-temurin:21-jdk
 
-WORKDIR /app
-
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
-COPY src ./src
-
-RUN chmod +x ./mvnw
-
-RUN ./mvnw clean package -DskipTests
+ADD ./exchange-rate-api-0.0.1-SNAPSHOT.jar exchange-rate-api-0.0.1-SNAPSHOT.jar
 
 CMD ["java", "-jar", "./target/exchange-rate-api-0.0.1-SNAPSHOT.jar"]
