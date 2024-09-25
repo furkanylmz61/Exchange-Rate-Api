@@ -1,4 +1,4 @@
-FROM eclipse-temurin:21-jdk
+FROM openjdk:17-oracle
 
 COPY target/exchange-rate-api-0.0.1-SNAPSHOT.jar app.jar
 
