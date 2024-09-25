@@ -2,19 +2,25 @@ package com.furkanylmz.exchange_rate_api.controller;
 
 import com.furkanylmz.exchange_rate_api.model.CurrencyRate;
 import com.furkanylmz.exchange_rate_api.services.CurrencyRateService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
+@Tag(name = "Currency Rate Controller", description = "Döviz kurları ile ilgili işlemler")
 public class CurrencyRateController {
+
+
 
     @Autowired
     private CurrencyRateService currencyRateService;
 
     // Tüm kurları döndür
+    @Operation(summary = "Tüm döviz kurlarını getirir")
     @GetMapping("/latest")
     public Map<String, CurrencyRate> getLatestRates() {
         return currencyRateService.getRates();
