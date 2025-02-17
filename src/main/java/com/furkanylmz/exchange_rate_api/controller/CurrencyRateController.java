@@ -49,7 +49,7 @@ public class CurrencyRateController {
         double convertedAmount;
 
         if ((from.equalsIgnoreCase("EUR") || from.equalsIgnoreCase("GBP")) && to.equalsIgnoreCase("USD")) {
-            convertedAmount = amount * (toRate.getForexSelling() / fromRate.getForexSelling());
+            convertedAmount = amount * (fromRate.getForexSelling() / toRate.getForexSelling());
         } else {
             throw new RuntimeException("Sadece EUR ve GBP USD'ye dönüştürülebilir.");
         }
@@ -61,8 +61,4 @@ public class CurrencyRateController {
                 "convertedAmount", convertedAmount
         );
     }
-
-
-
 }
-
