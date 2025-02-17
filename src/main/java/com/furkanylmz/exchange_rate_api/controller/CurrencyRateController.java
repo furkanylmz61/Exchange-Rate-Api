@@ -32,7 +32,6 @@ public class CurrencyRateController {
         return currencyRateService.getRates().get(currencyCode.toUpperCase());
     }
 
-    // Para birimleri arasında dönüşüm yap
     @GetMapping("/convert")
     public Map<String, Object> convertCurrency(
             @RequestParam String from,
@@ -47,11 +46,23 @@ public class CurrencyRateController {
             throw new RuntimeException("Geçersiz para birimi kodu");
         }
 
-        // TRY üzerinden dönüşüm yapıyoruz
-        double amountInTRY = amount * fromRate.getForexSelling();
-        double convertedAmount = amountInTRY / toRate.getForexBuying();
+        double convertedAmount;
 
-        return Map.of("result", convertedAmount);
+        if ((from.equalsIgnoreCase("EUR") || from.equalsIgnoreCase("GBP")) && to.equalsIgnoreCase("USD")) {
+            convertedAmount = amount * (toRate.getForexSelling() / fromRate.getForexSelling());
+        } else {
+            throw new RuntimeException("Sadece EUR ve GBP USD'ye dönüştürülebilir.");
+        }
+
+        return Map.of(
+                "from", from,
+                "to", to,
+                "amount", amount,
+                "convertedAmount", convertedAmount
+        );
     }
+
+
+
 }
 
